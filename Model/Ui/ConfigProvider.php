@@ -3,6 +3,7 @@
 namespace Stripeofficial\SOFORT\Model\Ui;
 
 use Magento\Checkout\Model\ConfigProviderInterface;
+use Magento\Store\Model\ScopeInterface;
 use Stripeofficial\Core\Helper\Data;
 
 /**
@@ -39,13 +40,13 @@ final class ConfigProvider implements ConfigProviderInterface
         return [
             'payment' => [
                 self::CODE => [
-                    'active' => $scopeConfig->isSetFlag('payment/stripesofort/active'),
-                    'title' => $scopeConfig->getValue('payment/stripesofort/title'),
-                    'country_code' => $scopeConfig->getValue('general/country/default'),
+                    'active' => $scopeConfig->isSetFlag('payment/stripesofort/active', ScopeInterface::SCOPE_STORE),
+                    'title' => $scopeConfig->getValue('payment/stripesofort/title', ScopeInterface::SCOPE_STORE),
+                    'country_code' => $scopeConfig->getValue('general/country/default', ScopeInterface::SCOPE_STORE),
                     'public_key' => $this->data->getAPIKey(),
                     'is_test' => $this->data->getTestMode(),
-                    'allowspecific' => $scopeConfig->getValue('payment/stripesofort/allowspecific'),
-                    'specificcountry' => $scopeConfig->getValue('payment/stripesofort/specificcountry'),
+                    'allowspecific' => $scopeConfig->getValue('payment/stripesofort/allowspecific', ScopeInterface::SCOPE_STORE),
+                    'specificcountry' => $scopeConfig->getValue('payment/stripesofort/specificcountry', ScopeInterface::SCOPE_STORE),
                 ]
             ]
         ];
